@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from "react";
+import "./App.css";
+
+const colors = [
+  { english: "Red", french: "Rouge" },
+  { english: "Green", french: "Vert" },
+  { english: "Blue", french: "Bleu" },
+  { english: "Yellow", french: "Jaune" },
+  { english: "Pink", french: "Rose" },
+  { english: "Gray", french: "Gris" },
+  { english: "Orange", french: "Orange" },
+  { english: "Brown", french: "Marron" },
+  { english: "Purple", french: "Violet" },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const fourColors = [];
+
+  for (let i = 0; i < 4; i++) {
+    let color;
+    let alreadyExists;
+    do {
+      const index = Math.floor(
+        Math.random() * colors.length
+      );
+      color = colors[index];
+
+      alreadyExists = fourColors.findIndex(
+        (item) => item.english === color.english
+      );
+    } while (alreadyExists > -1);
+
+    fourColors.push(color);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="colorWrapper">
+      {fourColors.map((item, index) => {
+        const { english } = item;
+        return (
+          <div
+            key={index}
+            style={{
+              backgroundColor: `${english.toLowerCase()}`,
+            }}
+            className="colorSquare"
+          />
+        );
+      })}
+    </div>
+  );
 }
 
-export default App
+export default App;
