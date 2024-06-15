@@ -2,17 +2,23 @@
   max-width: 100%;
   margin: 0px;
   padding: 0px;
-  text-align: center;
 }
 
-.colorWrapper {
-  display: grid;
+.pageWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   width: 100vw;
+}
+
+.colorGrid {
+  display: grid;
+  width: 403px;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 3px;
 }
 
 .colorSquare {
-  height: 50vh;
-  /* width: 50vw; */
+  height: 203px;
+  width: 203px;
 }

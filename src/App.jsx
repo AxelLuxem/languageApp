@@ -33,20 +33,33 @@ function App() {
     fourColors.push(color);
   }
 
+  const questionColor = Math.floor(
+    Math.random() * fourColors.length
+  );
+  console.log("test");
   return (
-    <div className="colorWrapper">
-      {fourColors.map((item, index) => {
-        const { english } = item;
-        return (
-          <div
-            key={index}
-            style={{
-              backgroundColor: `${english.toLowerCase()}`,
-            }}
-            className="colorSquare"
-          />
-        );
-      })}
+    <div className="pageWrapper">
+      <h1>
+        Please click on
+        {` ${fourColors[questionColor].french}`}
+      </h1>
+      <div className="colorGrid">
+        {fourColors.map((item, index) => {
+          const { english } = item;
+          return (
+            <button
+              key={index}
+              style={{
+                backgroundColor: `${english.toLowerCase()}`,
+              }}
+              className="colorSquare"
+              onClick={() =>
+                console.log(`This the color!!!! ${english}`)
+              }
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
