@@ -11,6 +11,13 @@
   width: 100vw;
 }
 
+.scoreWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #686868;
+}
+
 .colorGrid {
   display: grid;
   width: 403px;

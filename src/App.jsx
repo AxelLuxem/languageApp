@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 const colors = [
@@ -14,51 +14,85 @@ const colors = [
 ];
 
 function App() {
-  const fourColors = [];
+  const [score, setScore] = useState(0);
+  const [questionColor, setQuestionColor] = useState(0);
+  const [fourColors, setFourColors] = useState([]);
+  // const [selectedColor, setSelectedColor] = useState("");
 
-  for (let i = 0; i < 4; i++) {
-    let color;
-    let alreadyExists;
-    do {
-      const index = Math.floor(
-        Math.random() * colors.length
-      );
-      color = colors[index];
+  const generateColor = () => {
+    const colorSet = [];
 
-      alreadyExists = fourColors.findIndex(
-        (item) => item.english === color.english
-      );
-    } while (alreadyExists > -1);
+    for (let i = 0; i < 4; i++) {
+      let color;
+      let alreadyExists;
+      do {
+        const index = Math.floor(
+          Math.random() * colors.length
+        );
+        color = colors[index];
 
-    fourColors.push(color);
-  }
+        alreadyExists = colorSet.findIndex(
+          (item) => item.english === color.english
+        );
+      } while (alreadyExists > -1);
+      colorSet.push(color);
+    }
 
-  const questionColor = Math.floor(
-    Math.random() * fourColors.length
-  );
-  console.log("test");
+    setFourColors(colorSet);
+    setQuestionColor(
+      Math.floor(Math.random() * fourColors.length)
+    );
+    // setQuestionColor(
+    //   fourColors[
+    //     Math.floor(Math.random() * fourColors.length)
+    //   ]?.french
+    // );
+  };
+
+  const submitAnswer = (answer) => {
+    if (answer === fourColors[questionColor].french) {
+      setScore(score + 1);
+      generateColor();
+    } else {
+      generateColor();
+    }
+  };
+
+  useEffect(() => {
+    generateColor();
+  }, []);
+
+  console.log(score);
+  console.log(JSON.stringify(fourColors));
+
   return (
-    <div className="pageWrapper">
-      <h1>
-        Please click on
-        {` ${fourColors[questionColor].french}`}
-      </h1>
-      <div className="colorGrid">
-        {fourColors.map((item, index) => {
-          const { english } = item;
-          return (
-            <button
-              key={index}
-              style={{
-                backgroundColor: `${english.toLowerCase()}`,
-              }}
-              className="colorSquare"
-              onClick={() =>
-                console.log(`This the color!!!! ${english}`)
-              }
-            />
-          );
-        })}
+    <div>
+      <div className="scoreWrapper">
+        <p>Score: {` ${score}`}</p>
+      </div>
+      <div className="pageWrapper">
+        <h1>
+          Please click on
+          {` ${fourColors[questionColor]?.french || "..."}`}
+        </h1>
+        {/* <h1>
+        Please click on {` ${questionColor || "..."}`}
+      </h1> */}
+        <div className="colorGrid">
+          {fourColors.map((item, index) => {
+            const { english } = item;
+            return (
+              <button
+                key={index}
+                style={{
+                  backgroundColor: `${english.toLowerCase()}`,
+                }}
+                className="colorSquare"
+                onClick={() => submitAnswer(item.french)}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
