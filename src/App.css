@@ -5,17 +5,53 @@
 }
 
 .pageWrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* justify-content: center; */
   align-items: center;
-  flex-direction: column;
-  width: 100vw;
 }
 
 .scoreWrapper {
   display: flex;
-  align-items: center;
+  justify-content: center;
+}
+
+.scoreText {
+  font-weight: 600;
+  font-size: 25px;
+  height: 150px;
+  width: 150px;
+  align-content: center;
+  text-align: center;
+  /* background-color: #555; */
+  border-color: black;
+  border-width: 10px 10px;
+  border-radius: 50%;
+}
+
+@keyframes jump-shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.squaresWrapper {
+  display: flex;
+  align-items: flex-start;
   flex-direction: column;
-  background-color: #686868;
+  /* width: 50vw; */
 }
 
 .colorGrid {
@@ -28,4 +64,24 @@
 .colorSquare {
   height: 203px;
   width: 203px;
+}
+
+.colorGrid :hover {
+  transform: scale(1.1);
+  -webkit-transition: transform 0.15s ease-in-out;
+}
+
+.colorGrid :active {
+  transform: scale(1);
+}
+
+.answer {
+  height: 403px;
+  width: 403px;
+}
+
+.hiddenInput {
+  border-color: white;
+  border-width: 0px;
+  color: white;
 }

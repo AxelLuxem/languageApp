@@ -1,23 +1,16 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-const colors = [
-  { english: "Red", french: "Rouge" },
-  { english: "Green", french: "Vert" },
-  { english: "Blue", french: "Bleu" },
-  { english: "Yellow", french: "Jaune" },
-  { english: "Pink", french: "Rose" },
-  { english: "Gray", french: "Gris" },
-  { english: "Orange", french: "Orange" },
-  { english: "Brown", french: "Marron" },
-  { english: "Purple", french: "Violet" },
-];
+import colors from "./components/colorList";
 
-function App() {
+const scoreAninationDuration = 0.5;
+
+const App = () => {
   const [score, setScore] = useState(0);
   const [questionColor, setQuestionColor] = useState(0);
   const [fourColors, setFourColors] = useState([]);
-  // const [selectedColor, setSelectedColor] = useState("");
+  const [wrong, setWrong] = useState(false);
+  const [correct, setCorrect] = useState(false);
 
   const generateColor = () => {
     const colorSet = [];
@@ -42,60 +35,114 @@ function App() {
     setQuestionColor(
       Math.floor(Math.random() * fourColors.length)
     );
-    // setQuestionColor(
-    //   fourColors[
-    //     Math.floor(Math.random() * fourColors.length)
-    //   ]?.french
-    // );
   };
 
   const submitAnswer = (answer) => {
     if (answer === fourColors[questionColor].french) {
+      document.getElementById(
+        "Score"
+      ).style.animation = `jump-shake ${scoreAninationDuration}s`;
       setScore(score + 1);
+      setQuestionColor(0);
+      setFourColors([]);
       generateColor();
+      setCorrect(true);
+      setTimeout(() => {
+        setCorrect(false);
+        document.getElementById("Score").style.animation =
+          null;
+      }, scoreAninationDuration * 1000 + 500);
     } else {
+      setQuestionColor(0);
+      setFourColors([]);
       generateColor();
+      setWrong(true);
+      setTimeout(() => {
+        setWrong(false);
+      }, 1000);
     }
+  };
+
+  const keypress = (event) => {
+    const key = event.key;
+    if (
+      key === "1" ||
+      key === "2" ||
+      key === "3" ||
+      key === "4"
+    ) {
+      const keypressInput =
+        document.getElementById("keypressInput");
+      keypressInput.value = key;
+      keypressInput.focus();
+    }
+  };
+
+  const createKeyPressListener = () => {
+    document.addEventListener("keypress", keypress);
   };
 
   useEffect(() => {
     generateColor();
+    createKeyPressListener();
   }, []);
 
-  console.log(score);
-  console.log(JSON.stringify(fourColors));
-
   return (
-    <div>
+    <div className="pageWrapper">
       <div className="scoreWrapper">
-        <p>Score: {` ${score}`}</p>
+        <p id="Score" className="scoreText">
+          Score: {` ${score}`}
+        </p>
       </div>
-      <div className="pageWrapper">
-        <h1>
-          Please click on
-          {` ${fourColors[questionColor]?.french || "..."}`}
-        </h1>
-        {/* <h1>
-        Please click on {` ${questionColor || "..."}`}
-      </h1> */}
-        <div className="colorGrid">
-          {fourColors.map((item, index) => {
-            const { english } = item;
-            return (
-              <button
-                key={index}
-                style={{
-                  backgroundColor: `${english.toLowerCase()}`,
-                }}
-                className="colorSquare"
-                onClick={() => submitAnswer(item.french)}
-              />
-            );
-          })}
+      <div className="squaresWrapper">
+        <div className="">
+          <h1>
+            Please click on
+            {` ${
+              fourColors[questionColor]?.french || "..."
+            }`}
+          </h1>
+          <div className="colorGrid">
+            {correct ? (
+              <img className="answer" src="Checkmark.png" />
+            ) : wrong ? (
+              <img className="answer" src="Red-X.png" />
+            ) : (
+              fourColors.map((item, index) => {
+                const { english } = item;
+                return (
+                  <button
+                    key={index}
+                    style={{
+                      backgroundColor: `${english.toLowerCase()}`,
+                    }}
+                    className="colorSquare"
+                    onClick={() =>
+                      submitAnswer(item.french)
+                    }
+                  />
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
+      <form>
+        <input
+          id="keypressInput"
+          type="text"
+          className="hiddenInput"
+          onFocus={(event) => {
+            const fourColorsInput =
+              document.getElementById("keypressInput");
+            const value = fourColorsInput.value;
+            submitAnswer(fourColors[value - 1].french);
+            document.activeElement.blur();
+          }}
+        />
+      </form>
     </div>
   );
-}
+};
 
 export default App;
