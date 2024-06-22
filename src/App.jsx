@@ -7,10 +7,11 @@ const scoreAninationDuration = 0.5;
 
 const App = () => {
   const [score, setScore] = useState(0);
-  const [questionColor, setQuestionColor] = useState(0);
+  const [questionColor, setQuestionColor] = useState();
   const [fourColors, setFourColors] = useState([]);
   const [wrong, setWrong] = useState(false);
   const [correct, setCorrect] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
 
   const generateColor = () => {
     const colorSet = [];
@@ -32,18 +33,21 @@ const App = () => {
     }
 
     setFourColors(colorSet);
-    setQuestionColor(
-      Math.floor(Math.random() * fourColors.length)
+    const questionColorIndex = Math.floor(
+      Math.random() * fourColors.length
     );
+    const colorObjectSelected =
+      colorSet[questionColorIndex];
+    setQuestionColor(colorObjectSelected);
   };
 
   const submitAnswer = (answer) => {
-    if (answer === fourColors[questionColor].french) {
+    if (answer === questionColor.french) {
       document.getElementById(
         "Score"
       ).style.animation = `jump-shake ${scoreAninationDuration}s`;
       setScore(score + 1);
-      setQuestionColor(0);
+      setQuestionColor();
       setFourColors([]);
       generateColor();
       setCorrect(true);
@@ -53,7 +57,7 @@ const App = () => {
           null;
       }, scoreAninationDuration * 1000 + 500);
     } else {
-      setQuestionColor(0);
+      setQuestionColor();
       setFourColors([]);
       generateColor();
       setWrong(true);
@@ -83,6 +87,19 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (soundOn) {
+      setTimeout(() => {
+        const english = questionColor?.english;
+
+        if (english !== undefined) {
+          const audio = new Audio(`sounds/${english}.mp3`);
+          audio.play();
+        }
+      }, 1000);
+    }
+  }, [questionColor, soundOn]);
+
+  useEffect(() => {
     generateColor();
     createKeyPressListener();
   }, []);
@@ -90,6 +107,11 @@ const App = () => {
   return (
     <div className="pageWrapper">
       <div className="scoreWrapper">
+        <input
+          defaultChecked={true}
+          onChange={() => setSoundOn(!soundOn)}
+          type="checkbox"
+        />
         <p id="Score" className="scoreText">
           Score: {` ${score}`}
         </p>
@@ -98,9 +120,7 @@ const App = () => {
         <div className="">
           <h1>
             Please click on
-            {` ${
-              fourColors[questionColor]?.french || "..."
-            }`}
+            {` ${questionColor?.french || "..."}`}
           </h1>
           <div className="colorGrid">
             {correct ? (
@@ -132,7 +152,7 @@ const App = () => {
           id="keypressInput"
           type="text"
           className="hiddenInput"
-          onFocus={(event) => {
+          onFocus={() => {
             const fourColorsInput =
               document.getElementById("keypressInput");
             const value = fourColorsInput.value;
