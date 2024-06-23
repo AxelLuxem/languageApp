@@ -3,7 +3,7 @@ import "./App.css";
 
 import colors from "./components/colorList";
 
-const scoreAninationDuration = 0.5;
+const scoreAnimationDuration = 0.5;
 
 const App = () => {
   const [score, setScore] = useState(0);
@@ -45,25 +45,34 @@ const App = () => {
     if (answer === questionColor.french) {
       document.getElementById(
         "Score"
-      ).style.animation = `jump-shake ${scoreAninationDuration}s`;
+      ).style.animation = `jump-shake ${scoreAnimationDuration}s`;
       setScore(score + 1);
       setQuestionColor();
       setFourColors([]);
-      generateColor();
       setCorrect(true);
       setTimeout(() => {
+        generateColor();
         setCorrect(false);
         document.getElementById("Score").style.animation =
           null;
-      }, scoreAninationDuration * 1000 + 500);
+      }, scoreAnimationDuration * 1000 + 500);
     } else {
       setQuestionColor();
       setFourColors([]);
-      generateColor();
       setWrong(true);
       setTimeout(() => {
+        generateColor();
         setWrong(false);
       }, 1000);
+    }
+  };
+
+  const playSound = () => {
+    const english = questionColor?.english;
+
+    if (english !== undefined) {
+      const audio = new Audio(`sounds/${english}.mp3`);
+      audio.play();
     }
   };
 
@@ -88,14 +97,7 @@ const App = () => {
 
   useEffect(() => {
     if (soundOn) {
-      setTimeout(() => {
-        const english = questionColor?.english;
-
-        if (english !== undefined) {
-          const audio = new Audio(`sounds/${english}.mp3`);
-          audio.play();
-        }
-      }, 1000);
+      playSound();
     }
   }, [questionColor, soundOn]);
 
@@ -106,22 +108,34 @@ const App = () => {
 
   return (
     <div className="pageWrapper">
-      <div className="scoreWrapper">
-        <input
-          defaultChecked={true}
-          onChange={() => setSoundOn(!soundOn)}
-          type="checkbox"
-        />
-        <p id="Score" className="scoreText">
-          Score: {` ${score}`}
-        </p>
+      <div className="heading">
+        <div className="block">
+          <div className="toggleSwitchWrapper">
+            <label className="switchText">Sound</label>
+            <label className="switch">
+              <input
+                id="switch"
+                defaultChecked={true}
+                onChange={() => setSoundOn(!soundOn)}
+                type="checkbox"
+              />
+              <span className="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div className="scoreWrapper block">
+          <p id="Score" className="scoreText">
+            Score: {` ${score}`}
+          </p>
+        </div>
+        <div className="block"></div>
       </div>
       <div className="squaresWrapper">
-        <div className="">
-          <h1>
+        <div className="test">
+          <h2>
             Please click on
             {` ${questionColor?.french || "..."}`}
-          </h1>
+          </h2>
           <div className="colorGrid">
             {correct ? (
               <img className="answer" src="Checkmark.png" />
@@ -140,7 +154,9 @@ const App = () => {
                     onClick={() =>
                       submitAnswer(item.french)
                     }
-                  />
+                  >
+                    {index + 1}
+                  </button>
                 );
               })
             )}
@@ -161,6 +177,21 @@ const App = () => {
           }}
         />
       </form>
+      <div className="instructionsWrapper">
+        <h3>----How to play----</h3>
+        <p>
+          To play you have to click on colored square that
+          corresponds to the color that is written above the
+          four squares.
+          <br />
+          You can either left click on the chosen square, or
+          use numbers 1-4 to choose a square
+        </p>
+        <p>
+          If you wish to turn the sound off, then you can do
+          so by using the slider at the top left of the page
+        </p>
+      </div>
     </div>
   );
 };
