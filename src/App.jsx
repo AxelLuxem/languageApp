@@ -50,6 +50,7 @@ const App = () => {
       setQuestionColor();
       setFourColors([]);
       setCorrect(true);
+
       setTimeout(() => {
         generateColor();
         setCorrect(false);
@@ -60,6 +61,7 @@ const App = () => {
       setQuestionColor();
       setFourColors([]);
       setWrong(true);
+
       setTimeout(() => {
         generateColor();
         setWrong(false);
@@ -69,10 +71,10 @@ const App = () => {
 
   const playSound = () => {
     const english = questionColor?.english;
+    console.log("in the playSounds");
 
     if (english !== undefined) {
-      const audio = new Audio(`sounds/${english}.mp3`);
-      audio.play();
+      questionColor.audio.play();
     }
   };
 
