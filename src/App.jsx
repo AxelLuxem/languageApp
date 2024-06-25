@@ -1,9 +1,24 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-import colors from "./components/colorList";
+import { getRandomIndex, getColorSet } from "./utils";
 
 const scoreAnimationDuration = 0.5;
+
+export const keypress = (event) => {
+  const key = event.key;
+  if (
+    key === "1" ||
+    key === "2" ||
+    key === "3" ||
+    key === "4"
+  ) {
+    const keypressInput =
+      document.getElementById("keypressInput");
+    keypressInput.value = key;
+    keypressInput.focus();
+  }
+};
 
 const App = () => {
   const [score, setScore] = useState(0);
@@ -14,27 +29,10 @@ const App = () => {
   const [soundOn, setSoundOn] = useState(true);
 
   const generateColor = () => {
-    const colorSet = [];
-
-    for (let i = 0; i < 4; i++) {
-      let color;
-      let alreadyExists;
-      do {
-        const index = Math.floor(
-          Math.random() * colors.length
-        );
-        color = colors[index];
-
-        alreadyExists = colorSet.findIndex(
-          (item) => item.english === color.english
-        );
-      } while (alreadyExists > -1);
-      colorSet.push(color);
-    }
-
+    const colorSet = getColorSet();
     setFourColors(colorSet);
-    const questionColorIndex = Math.floor(
-      Math.random() * fourColors.length
+    const questionColorIndex = getRandomIndex(
+      fourColors.length
     );
     const colorObjectSelected =
       colorSet[questionColorIndex];
@@ -71,25 +69,8 @@ const App = () => {
 
   const playSound = () => {
     const english = questionColor?.english;
-    console.log("in the playSounds");
-
     if (english !== undefined) {
       questionColor.audio.play();
-    }
-  };
-
-  const keypress = (event) => {
-    const key = event.key;
-    if (
-      key === "1" ||
-      key === "2" ||
-      key === "3" ||
-      key === "4"
-    ) {
-      const keypressInput =
-        document.getElementById("keypressInput");
-      keypressInput.value = key;
-      keypressInput.focus();
     }
   };
 

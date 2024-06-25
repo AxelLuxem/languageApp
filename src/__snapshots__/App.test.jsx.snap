@@ -1,0 +1,282 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<App /> > should render the App component 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="pageWrapper"
+      >
+        <div
+          class="heading"
+        >
+          <div
+            class="block"
+          >
+            <div
+              class="toggleSwitchWrapper"
+            >
+              <label
+                class="switchText"
+              >
+                Sound
+              </label>
+              <label
+                class="switch"
+              >
+                <input
+                  checked=""
+                  id="switch"
+                  type="checkbox"
+                />
+                <span
+                  class="slider round"
+                />
+              </label>
+            </div>
+          </div>
+          <div
+            class="scoreWrapper block"
+          >
+            <p
+              class="scoreText"
+              id="Score"
+            >
+              Score: 
+               0
+            </p>
+          </div>
+          <div
+            class="block"
+          />
+        </div>
+        <div
+          class="squaresWrapper"
+        >
+          <div
+            class="test"
+          >
+            <h2>
+              Please click on
+               Vert
+            </h2>
+            <div
+              class="colorGrid"
+            >
+              <button
+                class="colorSquare"
+                style="background-color: red;"
+              >
+                1
+              </button>
+              <button
+                class="colorSquare"
+                style="background-color: green;"
+              >
+                2
+              </button>
+              <button
+                class="colorSquare"
+                style="background-color: blue;"
+              >
+                3
+              </button>
+              <button
+                class="colorSquare"
+                style="background-color: yellow;"
+              >
+                4
+              </button>
+            </div>
+          </div>
+        </div>
+        <form>
+          <input
+            class="hiddenInput"
+            id="keypressInput"
+            type="text"
+          />
+        </form>
+        <div
+          class="instructionsWrapper"
+        >
+          <h3>
+            ----How to play----
+          </h3>
+          <p>
+            To play you have to click on colored square that corresponds to the color that is written above the four squares.
+            <br />
+            You can either left click on the chosen square, or use numbers 1-4 to choose a square
+          </p>
+          <p>
+            If you wish to turn the sound off, then you can do so by using the slider at the top left of the page
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="pageWrapper"
+    >
+      <div
+        class="heading"
+      >
+        <div
+          class="block"
+        >
+          <div
+            class="toggleSwitchWrapper"
+          >
+            <label
+              class="switchText"
+            >
+              Sound
+            </label>
+            <label
+              class="switch"
+            >
+              <input
+                checked=""
+                id="switch"
+                type="checkbox"
+              />
+              <span
+                class="slider round"
+              />
+            </label>
+          </div>
+        </div>
+        <div
+          class="scoreWrapper block"
+        >
+          <p
+            class="scoreText"
+            id="Score"
+          >
+            Score: 
+             0
+          </p>
+        </div>
+        <div
+          class="block"
+        />
+      </div>
+      <div
+        class="squaresWrapper"
+      >
+        <div
+          class="test"
+        >
+          <h2>
+            Please click on
+             Vert
+          </h2>
+          <div
+            class="colorGrid"
+          >
+            <button
+              class="colorSquare"
+              style="background-color: red;"
+            >
+              1
+            </button>
+            <button
+              class="colorSquare"
+              style="background-color: green;"
+            >
+              2
+            </button>
+            <button
+              class="colorSquare"
+              style="background-color: blue;"
+            >
+              3
+            </button>
+            <button
+              class="colorSquare"
+              style="background-color: yellow;"
+            >
+              4
+            </button>
+          </div>
+        </div>
+      </div>
+      <form>
+        <input
+          class="hiddenInput"
+          id="keypressInput"
+          type="text"
+        />
+      </form>
+      <div
+        class="instructionsWrapper"
+      >
+        <h3>
+          ----How to play----
+        </h3>
+        <p>
+          To play you have to click on colored square that corresponds to the color that is written above the four squares.
+          <br />
+          You can either left click on the chosen square, or use numbers 1-4 to choose a square
+        </p>
+        <p>
+          If you wish to turn the sound off, then you can do so by using the slider at the top left of the page
+        </p>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
