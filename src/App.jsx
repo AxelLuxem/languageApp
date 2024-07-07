@@ -78,6 +78,13 @@ const App = () => {
     document.addEventListener("keypress", keypress);
   };
 
+  const resetScore = () => {
+    setScore(0);
+    setQuestionColor();
+    setFourColors([]);
+    generateColor();
+  };
+
   useEffect(() => {
     if (soundOn) {
       playSound();
@@ -105,6 +112,12 @@ const App = () => {
               <span className="slider round"></span>
             </label>
           </div>
+          <button
+            className="resetButton"
+            onClick={() => resetScore()}
+          >
+            Reset Score
+          </button>
         </div>
         <div className="scoreWrapper block">
           <p id="Score" className="scoreText">

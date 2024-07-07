@@ -83,6 +83,14 @@ input:checked + .slider:before {
   width: 100%;
 }
 
+.resetButton {
+  background-color: #2b78b8;
+  margin-left: 10px;
+  text-align: center;
+  color: White;
+  border-width: 1px;
+}
+
 .scoreWrapper {
   display: flex;
   justify-content: center;
